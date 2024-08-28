@@ -1,15 +1,24 @@
 import Colors from '@/constants/Colors';
 import { FontAwesome } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
-
+import { BlurView } from 'expo-blur';
+import CustomHeader from '@/components/CustomHeader';
 
 const Layout = () => {
     return (
         <Tabs
             screenOptions={{
                 tabBarActiveTintColor: Colors.primary,
-
-
+                tabBarBackground: () => (
+                    <BlurView
+                        intensity={100}
+                        tint={'extraLight'}
+                        style={{
+                            flex: 1,
+                            backgroundColor: 'rgba(0,0,0,0.05)',
+                        }}
+                    />
+                ),
                 tabBarStyle: {
                     backgroundColor: 'transparent',
                     position: 'absolute',
@@ -27,7 +36,7 @@ const Layout = () => {
                     tabBarIcon: ({ size, color }) => (
                         <FontAwesome name="registered" size={size} color={color} />
                     ),
-
+                    header: () => <CustomHeader />,
                     headerTransparent: true,
                 }}
             />

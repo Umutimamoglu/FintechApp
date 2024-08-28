@@ -23,7 +23,12 @@ const Page = () => {
     };
 
     return (
-        <ScrollView style={{ backgroundColor: Colors.background }}>
+        <ScrollView style={{ backgroundColor: Colors.background }}
+            contentContainerStyle={{
+                paddingTop: headerHeight,
+                paddingBottom: 600,
+            }}
+        >
             <View style={styles.account}>
                 <View style={styles.row}>
                     <Text style={styles.balance}>{balance()}</Text>
