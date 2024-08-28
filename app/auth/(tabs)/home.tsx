@@ -7,7 +7,7 @@ import { useBalanceStore } from '@/store/balanceStore';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { defaultStyles } from '@/constants/Styles';
 import { Ionicons } from '@expo/vector-icons';
-
+import WidgetList from '@/components/SortableList/WidgetList';
 
 const Page = () => {
     const { balance, runTransaction, transactions, clearTransactions } = useBalanceStore();
@@ -66,7 +66,8 @@ const Page = () => {
                     </View>
                 ))}
             </View>
-
+            <Text style={defaultStyles.sectionHeader}>Widgets</Text>
+            <WidgetList />
 
         </ScrollView>
     )
