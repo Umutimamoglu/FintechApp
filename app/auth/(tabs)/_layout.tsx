@@ -65,6 +65,8 @@ const Layout = () => {
                     tabBarIcon: ({ size, color }) => <FontAwesome name="bitcoin" size={size} color={color} />,
 
                     headerTransparent: true,
+                    header: () => <CustomHeader />,
+
                 }}
             />
             <Tabs.Screen

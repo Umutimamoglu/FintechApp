@@ -6,7 +6,7 @@ import { useFonts } from 'expo-font';
 import { Link, Stack, useRouter, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
-import { TouchableOpacity, Text } from 'react-native';
+import { TouchableOpacity, Text, View } from 'react-native';
 import 'react-native-reanimated';
 import * as SecureStore from 'expo-secure-store';
 import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
@@ -143,6 +143,34 @@ const InitialLayout = () => {
       }}
     />
     <Stack.Screen name="auth/(tabs)" options={{ headerShown: false }} />
+    <Stack.Screen
+      name="auth/crypto/[id]"
+      options={{
+        title: '',
+        headerLeft: () => (
+          <TouchableOpacity onPress={router.back}>
+            <Ionicons name="arrow-back" size={35} color={Colors.dark} />
+          </TouchableOpacity>
+        ),
+        headerLargeTitle: true,
+        headerTransparent: true,
+        headerRight: () => (
+          <View style={{ flexDirection: 'row', gap: 10 }}>
+            <TouchableOpacity>
+              <Ionicons name="notifications-outline" color={Colors.dark} size={30} />
+            </TouchableOpacity>
+            <TouchableOpacity >
+              <Ionicons name="star-outline" color={Colors.dark} size={30} />
+            </TouchableOpacity>
+          </View>
+        )
+
+
+      }}
+
+
+
+    />
   </Stack>
 
 
