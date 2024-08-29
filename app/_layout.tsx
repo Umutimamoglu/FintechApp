@@ -12,9 +12,15 @@ import * as SecureStore from 'expo-secure-store';
 import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
-
-
 const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY
+
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
 
 const tokenChace = {
   async getToken(key: string) {
@@ -69,9 +75,9 @@ const InitialLayout = () => {
     const inAuthGroup = segments[0] === 'auth';
 
     if (isSignedIn && !inAuthGroup) {
-      router.replace('/auth/(tabs)/home');
+      router.replace('/auth/(tabs)/crypto');
     } else if (!isSignedIn) {
-      router.replace('/');
+      router.replace('/login');
     }
   }, [isSignedIn]);
 
@@ -145,11 +151,12 @@ const InitialLayout = () => {
 const RootLayoutNav = () => {
   return (
     <ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY!} tokenCache={tokenChace}>
-      <GestureHandlerRootView>
-        <StatusBar style="light" />
-        <InitialLayout />
-      </GestureHandlerRootView>
-
+      <QueryClientProvider client={queryClient}>
+        <GestureHandlerRootView>
+          <StatusBar style="light" />
+          <InitialLayout />
+        </GestureHandlerRootView>
+      </QueryClientProvider>
     </ClerkProvider>
   );
 }
