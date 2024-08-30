@@ -19,6 +19,7 @@ import {
   QueryClientProvider,
   useQuery,
 } from '@tanstack/react-query'
+import { UserInactivityProvider } from '@/context/UserInactivity';
 
 const queryClient = new QueryClient()
 
@@ -75,7 +76,8 @@ const InitialLayout = () => {
     const inAuthGroup = segments[0] === 'auth';
 
     if (isSignedIn && !inAuthGroup) {
-      router.replace('/auth/(tabs)/crypto');
+      // router.replace('/auth/(tabs)/crypto');
+      router.replace("/auth/modals/lock");
     } else if (!isSignedIn) {
       router.replace('/login');
     }
@@ -167,10 +169,8 @@ const InitialLayout = () => {
 
 
       }}
-
-
-
     />
+    <Stack.Screen name="auth/(modals)/lock" options={{ headerShown: false, animation: 'none' }} />
   </Stack>
 
 
@@ -180,10 +180,12 @@ const RootLayoutNav = () => {
   return (
     <ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY!} tokenCache={tokenChace}>
       <QueryClientProvider client={queryClient}>
-        <GestureHandlerRootView>
-          <StatusBar style="light" />
-          <InitialLayout />
-        </GestureHandlerRootView>
+        <UserInactivityProvider>
+          <GestureHandlerRootView>
+            <StatusBar style="light" />
+            <InitialLayout />
+          </GestureHandlerRootView>
+        </UserInactivityProvider>
       </QueryClientProvider>
     </ClerkProvider>
   );
